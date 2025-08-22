@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Happy Birthday 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff9ecd, #ff6f91, #ffc3a0, #ffdde1);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+      flex-direction: column;
+      padding: 15px;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card {
+      background: rgba(255, 182, 193, 0.25);
+      padding: 25px 20px;
+      border-radius: 20px;
+      box-shadow: 0px 10px 40px rgba(255,105,180,0.6);
+      width: 100%;
+      max-width: 420px;
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+      z-index: 5;
+    }
+
+    h1, h2, .slogan, .footer {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: textFade 1s forwards;
+      word-wrap: break-word;
+    }
+    h1 { animation-delay: 0.3s; }
+    h2 { animation-delay: 0.8s; }
+    .slogan { animation-delay: 1.3s; }
+    .footer { animation-delay: 1.8s; }
+
+    @keyframes textFade {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: clamp(1.4em, 6vw, 2.3em);
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 6px rgba(255,20,147,0.7);
+    }
+
+    h2 {
+      font-size: clamp(0.85em, 3.5vw, 1.1em);
+      font-weight: 400;
+      margin-bottom: 15px;
+      opacity: 0.9;
+      line-height: 1.5em;
+    }
+
+    .slogan {
+      font-size: clamp(0.85em, 3.5vw, 1.1em);
+      font-weight: bold;
+      margin-bottom: 25px;
+      color: #fff0f6;
+      text-shadow: 1px 1px 6px rgba(255,20,147,0.8);
+    }
+
+    /* Flip container */
+    .flip-container {
+      perspective: 1000px;
+      margin: 0 auto 25px;
+      width: 65vw;
+      max-width: 200px;
+      aspect-ratio: 1/1;
+    }
+
+    .flipper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      backface-visibility: hidden;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255,105,180,0.8);
+    }
+
+    .front img, .back img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .back { transform: rotateY(180deg); }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      top: -10px;
+      z-index: 999;
+      opacity: 0.9;
+      animation: fall 5s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(720deg); }
+    }
+
+    /* Sparkling stars */
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: sparkle 2s infinite ease-in-out;
+      pointer-events: none;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.8); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: clamp(0.75em, 2.5vw, 0.9em);
+      opacity: 0.85;
+      color: #ffe4f1;
+    }
+
+    /* Extra small devices */
+    @media (max-width: 360px) {
+      .flip-container { width: 75vw; max-width: 160px; }
+      h1 { font-size: 1.2em; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Image flip effect -->
+    <div class="flip-container" id="flipCard">
+      <div class="flipper" id="flipper">
+        <div class="front">
+          <img id="frontImg" src="1.jpg" alt="Front Image">
+        </div>
+        <div class="back">
+          <img id="backImg" src="2.jpg" alt="Back Image">
+        </div>
+      </div>
+    </div>
+
+    <h1>🎂 Happy Birthday Siva 💖🎉</h1>
+    <h2>Wishing you endless joy, love, and success! 💖</h2>
+    <div class="slogan">💝 Sparkle like Barbie, Shine like a Star 💝</div>
+    <div class="footer">– From Your Best Friend</div>
+  </div>
+
+  <!-- Birthday Music -->
+  <audio id="bgMusic" autoplay muted playsinline loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+
+    // Autoplay attempt
+    window.addEventListener("load", () => {
+      music.play().then(() => {
+        // Unmute after short delay (so autoplay works on mobile)
+        setTimeout(() => { music.muted = false; }, 500);
+      }).catch(() => {
+        console.log("Autoplay blocked, enabling on first tap.");
+        // fallback: play on first click/touch
+        document.body.addEventListener("click", () => {
+          music.muted = false;
+          music.play();
+        }, { once: true });
+      });
+    });
+
+    // Confetti Effect
+    function launchConfetti() {
+      for (let i = 0; i < 30; i++) {
+        let conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.width = Math.random() > 0.5 ? "10px" : "6px";
+        conf.style.height = conf.style.width;
+        conf.style.left = Math.random() * window.innerWidth + "px";
+        conf.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        conf.style.animationDuration = (2 + Math.random() * 3) + "s";
+        conf.style.transform = `rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 5000);
+      }
+    }
+    launchConfetti();
+    setInterval(launchConfetti, 4000);
+
+    // Star sparkle background
+    function createStars() {
+      for (let i = 0; i < 40; i++) {
+        let star = document.createElement("div");
+        star.className = "star";
+        star.style.top = Math.random() * window.innerHeight + "px";
+        star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.animationDuration = (1 + Math.random() * 2) + "s";
+        document.body.appendChild(star);
+      }
+    }
+    createStars();
+
+    // Random image flip logic
+    const images = Array.from({length: 7}, (_, i) => `${i+1}.jpg`);
+    const frontImg = document.getElementById("frontImg");
+    const backImg = document.getElementById("backImg");
+    const flipper = document.getElementById("flipper");
+
+    let angle = 0;
+    function getRandomImage(exclude) {
+      let newImg;
+      do {
+        newImg = images[Math.floor(Math.random() * images.length)];
+      } while (newImg === exclude);
+      return newImg;
+    }
+
+    flipper.addEventListener("click", function() {
+      angle += 180;
+      flipper.style.transform = `rotateY(${angle}deg)`;
+
+      if (angle % 360 === 180) {
+        backImg.src = getRandomImage(frontImg.src.split("/").pop());
+      } else {
+        frontImg.src = getRandomImage(backImg.src.split("/").pop());
+      }
+    });
+  </script>
+</body>
+</html>
